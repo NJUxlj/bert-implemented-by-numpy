@@ -1,9 +1,10 @@
 ## 复现并改进一篇论文：Enriching BERT with Knowledge Graph Embeddings for Document Classification
 
 ### 原项目地址
-(pytorch-bert-document-classification)[https://github.com/malteos/pytorch-bert-document-classification]
-论文地址：
-(Enriching BERT with Knowledge Graph Embeddings for Document Classification)[https://arxiv.org/abs/1909.08402]
+[pytorch-bert-document-classification](https://github.com/malteos/pytorch-bert-document-classification)
+
+### 论文地址：
+[Enriching BERT with Knowledge Graph Embeddings for Document Classification](https://arxiv.org/abs/1909.08402)
 
 
 ### 项目内容
