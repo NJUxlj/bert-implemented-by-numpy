@@ -20,6 +20,13 @@
 ### 项目主要贡献
 - 使用最先进的文本处理方法纳入了额外的（元数据）数据。
 
+### 数据集和任务
+- 2019 GermEval shared task on hierarchical text classification
+- 一个包含了20784本德语书的数据集
+- 每行记录 = {title, author_list, blurb简介, 书籍URL, ISBN, 出版日期}
+- 所有书使用了德国出版商兰登书屋使用的分类法进行标记。{一级类别:8个类别, 二级类别:93， 三级类别:242}
+- 每个共享任务 = 子任务A + 子任务B, 
+
 ### 原文模型结构
 1. 新模型 = 原始Bert模型+双层MLP分类器+输出层softmax
 2. 输入数据分为两种：文本特征、非文本特征。
@@ -31,7 +38,15 @@
 
 
 ### 训练过程
+```python
+batch_size b= 16
+dropout probability d = 0.1
+learning rate η = 2−5 (Adam optimizer)
+training epochs = 5
 
+所有实验都在GeForce GTX 1080 Ti（11 GB）上运行，因此单个训练周期最多需要10分钟。
+如果没有一个标签的预测概率高于分类阈值，则使用最流行的标签（比如：文学和非文化）作为预测。
+```
 
 ### 原实验结果
 
