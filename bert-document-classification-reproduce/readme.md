@@ -33,9 +33,10 @@
 1. 新模型 = 原始Bert模型+双层MLP分类器+输出层softmax
 2. 输入数据分为两种：文本特征、非文本特征。
 3. 文本特征：标题+简介，不超过300 tokens
-4. 非文本特征包含：{元数据特征：10维向量（其中有2维代表性别）、作者信息嵌入：200维向量}
-5. Bert模型的输入格式 = 书籍标题+书籍简介，
-6. MLP分类器的输入：bert的输出+元数据特征+作者信息嵌入
+4. 非文本特征包含：{元数据特征(meta-data feature：10维向量（其中有2维代表性别）、作者信息嵌入(author embedding)：200维向量}
+5. gender字段取值：Probability of first author being male or female based on the **Gender-by-Name** dataset
+6. Bert模型的输入格式 = 书籍标题+书籍简介，
+7. MLP分类器的输入：bert的输出+元数据特征+作者信息嵌入
 ![image](https://github.com/user-attachments/assets/9bc7a6a2-bf28-49c6-97be-5bbaf3d401e9)
 
 
