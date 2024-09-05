@@ -84,6 +84,8 @@ The scores from the result table can be reproduced with the evaluation.ipynb not
 
 
 ### 我做出了如下改进
+- 由于阿里云DSW实例的网络问题，我无法访问huggingface。
+- 因此使用bert-base-chinese 代替 bert-base-german
 #### 改进1
 - 原始项目使用了德语写的书籍的简介作为语料，并且最终预训练了一个德语模型。具体来说，该模型是在德国维基百科、新闻文章和法院判决书上从头开始训练的。
 - 我将训练语料改为中文，并且想输入格式与国内习惯相匹配
