@@ -88,7 +88,43 @@ The scores from the result table can be reproduced with the evaluation.ipynb not
 - 因此使用bert-base-chinese 代替 bert-base-german
 #### 改进1
 - 原始项目使用了德语写的书籍的简介作为语料，并且最终预训练了一个德语模型。具体来说，该模型是在德国维基百科、新闻文章和法院判决书上从头开始训练的。
-- 我将训练语料改为中文，并且想输入格式与国内习惯相匹配
+- 我将训练语料改为中文，并且想输入格式与国内习惯相匹配。
+- **已抛弃**
+
+
+#### 改进2
+共享数据集的分类法无法找到中文的相似的版本，因此我暂时只能在 text-feature, extra featrue 这两块特征的组合上做文章
+
+#### PCA
+
+
+#### forward featrue selection 
+
+
+
+
+#### 改进3
+- 我们改进模型的架构
+- 原始模型采用了 BERT + MLP + softmax
+
+  - 原始的BERT论文提出，在从左到右模型(LTR)顶上加上BiLSTM层后，性能仍然无法超过BERT, 同时论文提出并证明BiLSTM会伤害GLUE数据集上的表现
+  - 另外，在某些信息来源中，BERT+BiLSTM的表现甚至不如原始BERT
+  - 我们分析， 在一些文本分类任务重， 双向编码可能并不是必要的，可能会产生对目标token的过度预测，因此有必要实验原始的LSTM， 同时保留语序信息。
+  - 另外， TextCNN在pooling时也能有效保留语序信息。
+
+- 因此，我提出要使用
+BERT + TextRCNN(LSTM+TextCNN) + MLP + SoftMAX
+
+
+
+#### 改进4
+- 根据论文的说法，在所有的实验设置中（sub-taskA,B + text-feature or not + extra-features or not), 
+模型的精确率都显著高于召回率。
+- 作者认为，对于子任务B中的343个标签中的一些，实例很少。这意味着，如果分类器预测某个标签，它很可能是正确的（即高精度），但对于许多具有低频标签的情况，这个低频标签永远不会被预测（即低召回率）。🔤
+
+##### 解决标签不均衡问题
+1.**过采样** 复制指定类别的样本，在采样中重复
+2.**降采样** 减少多样本类别的采样，随机使用部分
 
 
 
