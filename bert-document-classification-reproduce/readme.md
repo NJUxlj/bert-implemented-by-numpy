@@ -116,6 +116,95 @@ The scores from the result table can be reproduced with the evaluation.ipynb not
 BERT + TextRCNN(LSTM+TextCNN) + MLP + SoftMAX
 
 
+```python
+
+class ExtraBertTextRCNNMultiClassifier(nn.Module):
+    def __init__(self, bert_model_path, labels_count, rnn_hidden_dim=256, cnn_kernel_size=3,   
+                 rnn_type='LSTM', num_layers=1, hidden_dim=768, mlp_dim=256, extras_dim=6, dropout=0.1):  
+        super(ExtraBertTextRCNNMultiClassifier, self).__init__()  
+
+        # 存储模型的超参数  
+        self.config = {  
+            'bert_model_path': bert_model_path,  
+            'labels_count': labels_count,  
+            'rnn_hidden_dim': rnn_hidden_dim,  
+            'cnn_kernel_size': cnn_kernel_size,  
+            'rnn_type': rnn_type,  
+            'num_layers': num_layers,  
+            'hidden_dim': hidden_dim,  
+            'mlp_dim': mlp_dim,  
+            'extras_dim': extras_dim,  
+            'dropout': dropout  
+        }  
+
+        self.bert = BertModel.from_pretrained(bert_model_path)  
+
+        # 初始化RNN（可以是LSTM）        
+        self.rnn = nn.LSTM(input_size=hidden_dim, hidden_size=rnn_hidden_dim,  
+                           num_layers=num_layers, batch_first=True, bidirectional=True)  
+
+        # 初始化CNN层用于特征提取  
+        self.cnn = nn.Conv1d(in_channels=2 * rnn_hidden_dim,  # 因为是双向LSTM  
+                             out_channels=rnn_hidden_dim,  
+                             kernel_size=cnn_kernel_size,  
+                             padding=cnn_kernel_size // 2)  
+
+      
+        self.dropout = nn.Dropout(dropout)  
+
+        # MLP全连接层  
+        self.mlp = nn.Sequential(  
+            nn.Linear(rnn_hidden_dim + extras_dim, mlp_dim),  
+            nn.ReLU(),  
+            nn.Linear(mlp_dim, mlp_dim),  
+            nn.ReLU(),  
+            nn.Linear(mlp_dim, labels_count)  
+        )  
+
+        # Softmax层用于输出概率  
+        self.softmax = nn.Softmax(dim=1)  
+
+    def forward(self, tokens, masks, extras):  
+        '''  
+        tokens: [batch_size, seq_len, hidden_dim]  
+        masks: [batch_size, seq_len]  
+        extras: [batch_size, extras_dim]  
+        '''  
+        # 通过BERT模型获取最后一个隐藏层的输出和池化输出  
+        sequence_output, _ = self.bert(tokens, attention_mask=masks, return_dict=False)  
+        
+        # 通过RNN  
+        rnn_output, _ = self.rnn(sequence_output)  
+
+        # 转换维度使其适应卷积层 (batch_size, channels, seq_len)  
+        rnn_output = rnn_output.permute(0, 2, 1)  
+
+        # 通过卷积层提取特征  
+        cnn_output = self.cnn(rnn_output)  
+
+        # 转换卷积输出维度  
+        cnn_output = cnn_output.permute(0, 2, 1)  
+
+        # 提取最后一个时间步的特征作为文本特征  
+        text_features = torch.mean(cnn_output, dim=1)  
+
+        dropout_output = self.dropout(text_features)  
+
+        concat_output = torch.cat([dropout_output, extras], dim=1)  
+
+        mlp_output = self.mlp(concat_output)  
+
+        # 输出概率  
+        proba = self.softmax(mlp_output)  
+
+        return proba  
+
+
+
+```
+
+- 后期，我们也会加入Diy的BERT（纯numpy实现）
+
 
 #### 改进4
 - 根据论文的说法，在所有的实验设置中（sub-taskA,B + text-feature or not + extra-features or not), 

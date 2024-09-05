@@ -16,7 +16,7 @@ from config import BERT_MODELS_DIR, MLP_DIM, AUTHOR_DIM, GENDER_DIM, HIDDEN_DIM,
 
 from models import ExtraBertMultiClassifier, BertMultiClassifier
 
-
+from data_utils import get_extras_gender, to_dataloader
 
 
 
@@ -164,7 +164,16 @@ class Experiment(object):
 
         # 只要存在任何一种extra features
         if self.with_manual or self.with_author_gender or self.with_author_vec:
-            train_extras, vec_found_count, gender_found_count, _, _ = get_extras_gender()
+            train_extras, vec_found_count, gender_found_count, _, _ = get_extras_gender(
+                train_df,
+                self.get_extra_cols(),
+                author2vec,
+                author2gender,
+                # 标签：是否加入 author_embedding
+                with_vec = self.with_author_vec
+                with_gender = self.with_author_gender
+                on_off_switch = self.author_vec_switch
+            )
         else:
             train_extras = None
 
