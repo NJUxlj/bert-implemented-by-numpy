@@ -51,6 +51,31 @@ training epochs = 5
 如果没有一个标签的预测概率高于分类阈值，则使用最流行的标签（比如：文学和非文化）作为预测。
 ```
 
+### 如何运行原项目
+
+####
+命令行环境变量
+- TRAIN_DF_PATH: Path to Pandas Dataframe (pickle)
+- GPU_ID: Run experiments on this GPU (used for CUDA_VISIBLE_DEVICES)
+- OUTPUT_DIR: Directory to store experiment output
+- EXTRAS_DIR: Directory where author embeddings and gender data is located
+- BERT_MODELS_DIR: Directory where pre-trained BERT models are located
+
+Validation set
+```shell
+python cli.py run_on_val <name> $GPU_ID $EXTRAS_DIR $TRAIN_DF_PATH $VAL_DF_PATH $OUTPUT_DIR --epochs 5
+```
+
+Test set
+```shell
+python cli.py run_on_test <name> $GPU_ID $EXTRAS_DIR $FULL_DF_PATH $TEST_DF_PATH $OUTPUT_DIR --epochs 5
+```
+
+Evaluation
+```shell
+The scores from the result table can be reproduced with the evaluation.ipynb notebook.
+```
+
 ### 原实验结果
 - 使用额外的元数据特征和作者信息嵌入的BERT-German的设置优于所有其他设置
 - 任务A的F1得分为87.20，任务B的F1得分是64.70
