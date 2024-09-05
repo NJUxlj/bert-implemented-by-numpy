@@ -91,3 +91,22 @@ The scores from the result table can be reproduced with the evaluation.ipynb not
 
 
 ### 实验结果
+
+
+
+
+
+
+
+### Reference
+```latex
+@inproceedings{Ostendorff2019,
+    address = {Erlangen, Germany},
+    author = {Ostendorff, Malte and Bourgonje, Peter and Berger, Maria and Moreno-Schneider, Julian and Rehm, Georg},
+    booktitle = {Proceedings of the GermEval 2019 Workshop},
+    title = {{Enriching BERT with Knowledge Graph Embedding for Document Classification}},
+    year = {2019}
+}
+
+
+```
