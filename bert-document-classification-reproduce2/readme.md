@@ -76,6 +76,36 @@ Evaluation
 The scores from the result table can be reproduced with the evaluation.ipynb notebook.
 ```
 
+
+#### 下载wikidata_translation_v1.tsv.gz数据集
+![Snipaste_2024-09-08_12-11-48](https://github.com/user-attachments/assets/10c8e271-9cc0-4567-8986-5c486197aada)
+
+
+
+### 使用WikiMapper创建Wiki索引
+
+```shell
+pip install wikimapper
+
+# 创建 index_enwiki-latest.db
+
+wikimapper download enwiki-latest --dir wikidata
+
+wikimapper create enwiki-latest --dumpdir wikidata --target wikidata/index_enwiki-latest.db
+
+# 创建 index_dewiki-latest.db
+wikimapper download dewiki-latest --dir wikidata
+
+wikimapper create dewiki-latest --dumpdir wikidata --target wikidata/index_dewiki-latest.db
+```
+
+#### 加载 authors.pickle
+打开germeval-data.ipynb
+一直运行直到第75个代码cell
+![image](https://github.com/user-attachments/assets/fa4667a8-0e2f-497d-b59e-b63633676018)
+
+
+
 ### 原实验结果
 - 使用额外的元数据特征和作者信息嵌入的BERT-German的设置优于所有其他设置
 - 任务A的F1得分为87.20，任务B的F1得分是64.70
@@ -223,15 +253,7 @@ class ExtraBertTextRCNNMultiClassifier(nn.Module):
 
 
 
-### 使用WikiMapper创建Wiki索引
 
-```shell
-pip install wikimapper
-
-wikimapper download enwiki-latest --dir wikidata
-
-wikimapper create enwiki-latest --dumpdir wikidata --target wikidata/index_enwiki-latest.db
-```
 
 
 
