@@ -133,5 +133,8 @@ class TorchModel(nn.Module):
 
 
 ## 实验结果
+![image](https://github.com/user-attachments/assets/6c68f3a4-d611-4c30-8ae7-9df94524fd29)
+
+
 
 
