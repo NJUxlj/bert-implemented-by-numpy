@@ -12,7 +12,68 @@
 - 每种模型对比模型预测速度
 - 总结成表格输出
 
+### 项目文件内容
+- model.py
+```markdown
+根据config配置中的`model_type`字段，来选择到底使用哪个模型
 
+可选的模型包括
+- Fast-Text
+- LSTM
+- GRU
+- RNN
+- CNN
+- GatedCNN
+- StackedGatedCNN
+- RCNN
+- Bert
+- Bert+LSTM
+- Bert+CNN
+
+```
+
+- config.py
+```python
+# 设置了Config字典用来存储各种训练参数
+Config = {
+    "model_path": "output",
+    "train_data_path": "./data/train_tag_news.json",
+    "valid_data_path": "./data/valid_tag_news.json",
+    "vocab_path":"nn_pipline\chars.txt",
+    "model_type":"bert",
+    "max_length": 30,
+    "hidden_size": 256,
+    "kernel_size": 3,
+    "num_layers": 2,
+    "epoch": 15,
+    "batch_size": 128,
+    "pooling_style":"max",
+    "optimizer": "adam",
+    "learning_rate": 1e-3,
+    "pretrain_model_path":r"D:\pre-trained-models\bert-base-chinese",
+    "seed": 987
+}
+```
+
+- loader.py
+```markdown
+自定义的Dataset类，用于加载词表，加载电商评论（使用bertTokenizer进行分词），根据前面两者来创建训练集
+
+创建DataLoader为训练做准备
+```
+
+- main.py
+```markdown
+ - 主训练流程
+
+```
+
+- evaluate.py
+```markdown
+
+```
+
+  
 ### 项目细节
 1. model.py中，我们实现了Bert， LSTM, Bert+LSTM, TextRCNN 等文本分类模型， 并且，我们根据config文件中“model”字段的配置，自动选择加载某个模型进行训练.
 
