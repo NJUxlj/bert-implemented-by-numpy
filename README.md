@@ -30,3 +30,15 @@
 
 ### bert-document-classification-reproduce
 我复现了一篇Bert相关论文《用知识图嵌入丰富BERT进行文档分类》的代码，并对代码逻辑做出了改进。
+
+
+
+
+## 运行项目
+```shell
+conda create --name myenv python=3.10
+conda activate myenv
+
+# cd 到项目根目录下
+pip install -r requirements.txt  
+```
