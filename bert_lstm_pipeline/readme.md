@@ -126,3 +126,11 @@ class TorchModel(nn.Module):
         self.loss = nn.functional.cross_entropy  #loss采用交叉熵损失
 
 ```
+
+
+
+
+
+## 实验结果
+
+
