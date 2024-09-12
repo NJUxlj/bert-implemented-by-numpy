@@ -129,11 +129,14 @@ class TorchModel(nn.Module):
 
 
 ## 如何运行
-打开main.py运行
+- 打开main.py运行
 ![image](https://github.com/user-attachments/assets/4d276d0e-3ea1-4dd1-9805-d240229a00d0)
 
-所有模型的分类性能对比文件会导出在`model_output.csv`
+- 所有模型的分类性能对比文件会导出在`model_output.csv`
 
+
+### 请自行修改config文件中所有的路径！！！
+![image](https://github.com/user-attachments/assets/43525d94-6ae5-4356-9863-1da2a33ed64c)
 
 
 
