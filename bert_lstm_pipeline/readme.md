@@ -139,7 +139,8 @@ class TorchModel(nn.Module):
 
 ## 实验结果
 ![image](https://github.com/user-attachments/assets/6c68f3a4-d611-4c30-8ae7-9df94524fd29)
-
+![image](https://github.com/user-attachments/assets/576ea2cd-52a8-44e5-bac9-fd931bd987ba)
+![image](https://github.com/user-attachments/assets/5eeb59ff-c92c-454f-9165-ca2387cde757)
 
 - 模型分类性能结果
 ```markdown
