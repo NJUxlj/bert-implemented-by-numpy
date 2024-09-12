@@ -64,13 +64,13 @@ Config = {
 
 - main.py
 ```markdown
- - 主训练流程
+ - 主训练流程, 分多个batch进行训练
 
 ```
 
 - evaluate.py
 ```markdown
-
+使用验证集进行模型性能评估，并记录每个模型的关键性能指标
 ```
 
   
@@ -133,6 +133,15 @@ class TorchModel(nn.Module):
 ![image](https://github.com/user-attachments/assets/4d276d0e-3ea1-4dd1-9805-d240229a00d0)
 
 所有模型的分类性能对比文件会导出在`model_output.csv`
+
+
+
+
+## 实验结果
+![image](https://github.com/user-attachments/assets/6c68f3a4-d611-4c30-8ae7-9df94524fd29)
+
+
+- 模型分类性能结果
 ```markdown
 
 | model_type        | acc                  | time                 | sample_len |  
@@ -151,12 +160,4 @@ class TorchModel(nn.Module):
 | bert_mid_layer    | 0.8617021276595744   | 0.7447624206542969   | 30.0       |
 
 ```
-
-
-
-## 实验结果
-![image](https://github.com/user-attachments/assets/6c68f3a4-d611-4c30-8ae7-9df94524fd29)
-
-
-
 
