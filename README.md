@@ -62,6 +62,13 @@
 
 
 ## 运行项目
+
+###注意！！！
+
+每个小项目的运行环境都不一样
+
+- 对于除论文复现以外的其他项目：
+
 ```shell
 conda create --name myenv python=3.10
 conda activate myenv
@@ -69,3 +76,13 @@ conda activate myenv
 # cd 到项目根目录下
 pip install -r requirements.txt  
 ```
+
+
+- 对于论文复现项目：
+```shell
+
+python -m venv .venv
+
+pip install -r requirements
+```
+剩下的数据集配置之类的，这里就不说明了，可以查看原文
